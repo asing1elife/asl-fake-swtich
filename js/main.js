@@ -59,9 +59,6 @@ function loadInterface() {
       $this.addClass('active')
     })
 
-    // 默认选中第一个游戏
-    $screen.find('.game-item').first().trigger('click')
-
     // 获取游戏数据
     generateGameInfo()
   })
@@ -80,12 +77,11 @@ function generateGameInfo() {
     $screen.find('.game-panel').empty()
 
     for (let gameData of eval(gameDatas)) {
-      $screen.find('.game-panel').append(`
-          <div class="game-item interface-item" data-name="${gameData.name}">
-          <div class="item-thumbnail" style="background-image: url(${gameData.image})">        
-          </div>
-          </div>`)
+      addGame(gameData.name, gameData.image)
     }
+
+    // 默认选中第一个游戏
+    $screen.find('.game-item').first().trigger('click')
 
     return
   }
@@ -119,11 +115,7 @@ function generateGameInfo() {
             image: image
           })
 
-          $screen.find('.game-panel').append(`
-          <div class="game-item interface-item" data-name="${name}">
-          <div class="item-thumbnail" style="background-image: url(${image})">        
-          </div>
-          </div>`)
+          addGame(name, image)
         })
 
         return false
@@ -132,7 +124,19 @@ function generateGameInfo() {
     })
 
     $localStorage.setItem('game-datas', JSON.stringify(gameDatas))
+
+    // 默认选中第一个游戏
+    $screen.find('.game-item').first().trigger('click')
   })
+}
+
+// 添加游戏
+function addGame(name, image) {
+  $screen.find('.game-panel').append(`
+  <div class="game-item interface-item" data-name="${name}">
+  <div class="item-thumbnail" style="background-image: url(${image})">        
+  </div>
+  </div>`)
 }
 
 // 初始化键盘操作
