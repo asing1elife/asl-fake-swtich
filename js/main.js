@@ -6,41 +6,41 @@ $(function () {
   $screen = $switch.find('.screen')
 
   // 开机
-  // $switch.find('.home-btn').on('click', function () {
-  //   let $this = $(this)
+  $switch.find('.home-btn').on('click', function () {
+    let $this = $(this)
 
-  //   // 已经开机则直接关机
-  //   if ($switch.hasClass('on')) {
-  //     $switch.removeClass('on')
-  //     return
-  //   }
+    // 已经开机则直接关机
+    if ($switch.hasClass('on')) {
+      $switch.removeClass('on')
+      return
+    }
 
-  //   // 调用欢迎界面
-  //   $screen.load('views/welcome.html', function () {
-  //     // 延迟20毫秒，确认DOM元素已加载
-  //     setTimeout(() => {
-  //       $switch.addClass('on')
+    // 调用欢迎界面
+    $screen.load('views/welcome.html', function () {
+      // 延迟20毫秒，确认DOM元素已加载
+      setTimeout(() => {
+        $switch.addClass('on')
 
-  //       // 播放音效
-  //       playStartAudio()
+        // 播放音效
+        playStartAudio()
 
-  //       // logo动画结束后执行欢迎界面动画
-  //       $screen.find('.logo-wrapper').on('animationend', function () {
-  //         // 指定动画效果
-  //         $screen.find('.welcome-wrapper').addClass('bye')
+        // logo动画结束后执行欢迎界面动画
+        $screen.find('.logo-wrapper').on('animationend', function () {
+          // 指定动画效果
+          $screen.find('.welcome-wrapper').addClass('bye')
 
-  //         // 欢迎界面动画结束后，加载主界面
-  //         $screen.find('.welcome-wrapper').on('webkitTransitionEnd', function () {
-  //           loadInterface()
-  //         })
-  //       })
-  //     }, 20)
-  //   })
-  // })
-  loadInterface()
+          // 欢迎界面动画结束后，加载主界面
+          $screen.find('.welcome-wrapper').on('webkitTransitionEnd', function () {
+            // 加载主界面
+            loadInterface()
 
-  // 初始化键盘
-  initKeyboard()
+            // 初始化键盘
+            initKeyboard()
+          })
+        })
+      }, 20)
+    })
+  })
 })
 
 // 播放开机音效
