@@ -12,6 +12,9 @@ $(function () {
     // 已经开机则直接关机
     if ($switch.hasClass('on')) {
       $switch.removeClass('on')
+
+      // 清空子元素
+      $screen.empty()
       return
     }
 
@@ -88,7 +91,7 @@ function generateGameInfo() {
 
   gameDatas = new Array()
 
-  $.get('https://whatsmall.com/nintendo', {
+  $.get('https://www.whatsmall.com/nintendo', {
     gametype: 'switch',
     alias: 'nintendohk'
   }, function (data) {
@@ -108,7 +111,8 @@ function generateGameInfo() {
 
           let $this = $(el)
           let name = $this.find('a').attr('title')
-          let image = $this.find('img').data('src').replace('../', 'https://whatsmall.com/').replace('width:480', 'width:144').replace('height:270', 'height:144')
+
+          let image = $this.find('img').data('src').replace('../', 'https://www.whatsmall.com/').replace('height=270', 'height=144')
 
           gameDatas.push({
             name: name,
