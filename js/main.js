@@ -24,22 +24,21 @@ $(function () {
       setTimeout(() => {
         $switch.addClass('on')
 
-        // 播放音效
-        playStartAudio()
+        // 播放音效，会出现跨域问题，所以注释
+        // playStartAudio()
 
         // logo动画结束后执行欢迎界面动画
         $screen.find('.logo-wrapper').on('animationend', function () {
           // 指定动画效果
           $screen.find('.welcome-wrapper').addClass('bye')
 
-          // 欢迎界面动画结束后，加载主界面
-          $screen.find('.welcome-wrapper').on('webkitTransitionEnd', function () {
+          // 欢迎界面动画结束后，加载主界面，监听会导致事件重复加载，没有排查到原因，所以注释
+          // $screen.find('.welcome-wrapper.bye').on('webkitTransitionEnd', function () {
+          setTimeout(function () {
             // 加载主界面
             loadInterface()
-
-            // 初始化键盘
-            initKeyboard()
-          })
+          }, 1300)
+          // })
         })
       }, 20)
     })
@@ -54,7 +53,7 @@ function playStartAudio() {
 // 加载主界面
 function loadInterface() {
   $screen.load('views/interface.html', function () {
-    // 选择主界面内容
+    // 选择主界面内容，实现对.interface-item的提前监听
     $screen.on('click', '.interface-item', function () {
       let $this = $(this)
 
@@ -62,8 +61,14 @@ function loadInterface() {
       $this.addClass('active')
     })
 
-    // 获取游戏数据
-    generateGameInfo()
+    // 初始化键盘
+    initKeyboard()
+
+    // 获取游戏数据，会出现跨域问题，所以注释
+    // generateGameInfo()
+
+    // 默认选中第一个游戏，本来在 generateGameInfo 中，但因为上个函数被注释，所以单独移出来
+    $screen.find('.game-item').first().trigger('click')
   })
 }
 
@@ -128,9 +133,6 @@ function generateGameInfo() {
     })
 
     $localStorage.setItem('game-datas', JSON.stringify(gameDatas))
-
-    // 默认选中第一个游戏
-    $screen.find('.game-item').first().trigger('click')
   })
 }
 
